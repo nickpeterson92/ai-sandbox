@@ -1,5 +1,6 @@
 # main.py
 
+
 import os
 import json
 import asyncio
@@ -13,7 +14,6 @@ from typing_extensions import TypedDict
 from trustcall import create_extractor
 
 from langgraph.checkpoint.memory import MemorySaver
-from langgraph.store.base import BaseStore
 from langgraph.graph import StateGraph, END
 from langgraph.graph.message import RemoveMessage, add_messages
 from langgraph.prebuilt import ToolNode, tools_condition
@@ -276,7 +276,9 @@ async def main():
                                 chunk_content = str(chunk_obj)
                         else:
                             chunk_content = json.dumps(data) if isinstance(data, dict) else str(data)
+
                         await type_out(chunk_content)
+
                         if isinstance(data, dict) and "chunk" in data:
                             chunk_obj = data["chunk"]
                             if hasattr(chunk_obj, "additional_kwargs"):
